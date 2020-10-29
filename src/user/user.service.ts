@@ -20,6 +20,7 @@ export class UserService {
     const user = new User();
     user._id = uuid.v4();
     user.username = input.username;
+    user.firstname=input.firstname;;
     user.password = input.password;
     return this.userRepository.save(user);
   }
