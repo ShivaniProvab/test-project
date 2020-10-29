@@ -1,11 +1,13 @@
 type User {
   _id: String!
   username: String!
+  email:String!
   password: String!
 }
 
 input UserInput {
   username: String!
+  email:String!
   password: String!
 }
 

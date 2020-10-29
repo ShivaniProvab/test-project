@@ -1,7 +1,6 @@
 export class UserInput {
     username: string;
-    firstname:string;
-    lastname:string;
+    email : string;
     password: string;
 
   }

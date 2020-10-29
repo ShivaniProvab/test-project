@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql/dist/graphql.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RegisterController } from './register/register.controller';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
@@ -25,7 +24,7 @@ import { join } from 'path';
     UserModule,
     
   ],
-  controllers: [AppController, RegisterController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
