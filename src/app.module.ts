@@ -9,8 +9,8 @@ import { join } from 'path';
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      typePaths: ['./**/*.graphql'],
-      playground: true
+      autoSchemaFile:true,
+      playground:true
     }),
     TypeOrmModule.forRoot({
       type: 'mongodb',
@@ -20,11 +20,12 @@ import { join } from 'path';
       synchronize: true,
       useNewUrlParser: true,
       logging: true,
+      autoLoadEntities:true
     }),
     UserModule,
     
   ],
-  controllers: [AppController],
+  controllers: [AppController, ],
   providers: [AppService],
 })
 export class AppModule {}
