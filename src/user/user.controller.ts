@@ -19,7 +19,7 @@ export class UserController {
 
     @Post('login')
     login(@Body() body){
-        return this.UserResolver.login(body.username)
+        return this.UserResolver.login(body.username,body.password)
 
     }
     

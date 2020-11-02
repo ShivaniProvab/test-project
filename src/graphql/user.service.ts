@@ -15,12 +15,12 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
-  async findUser(username: string): Promise<Users> {
+  async findUser(username: string,password:string): Promise<Users> {
     console.log(username)
     if(username){
       console.log("User Name",username)
 
-      const User = await this.userModel.findOne({username})
+      const User = await this.userModel.findOne({username,password})
       console.log(User)
       return User
     }

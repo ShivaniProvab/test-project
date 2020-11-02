@@ -12,8 +12,8 @@ export class UserResolver {
      }
 
     @Query(()=>String) 
-    async login(@Args('username') username:string) {
-    return  this.userService.findUser(username)
+    async login(@Args('username')@Args('password') username:string,password:string) {
+    return  this.userService.findUser(username,password)
     }
     
     @Query(() => [Users])
