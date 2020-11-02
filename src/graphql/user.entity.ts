@@ -1,24 +1,28 @@
-import { Field, ID, InputType, Int, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+// import { Field, ID, InputType, Int, ObjectType } from '@nestjs/graphql';
+// import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-@Entity()
+export type UserDocument = Users & Document;
+
+@Schema()
 @ObjectType()
 @InputType('User')
-export class Users {
+export class Users{
+  @Prop()
+  @Field()
+  username : string;
+  @Prop()
+  @Field()
+  email : string;
+  @Prop()
+  @Field()
+  password : string;
+  @Prop()
+  @Field({nullable:true})
+  createdOn : Date;
+}
 
-  @PrimaryColumn()
-  @Field()
-   _id: string;
-  @Column()
-  @Field({nullable:true})
-   username: string;
-  @Column()
-  @Field({nullable:true})
-   email: string;
-  @Column()
-  @Field({nullable:true})
-  password: string;
-  @Column()
-  @Field()
-  createdOn:Date
-  }
+export const UserSchema = SchemaFactory.createForClass(Users);
+

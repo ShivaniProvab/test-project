@@ -2,17 +2,20 @@ import { Resolver,Query, Mutation, Args } from '@nestjs/graphql';
 import { Users } from './user.entity';
 import { UserService } from './user.service';
 
-@Resolver(of=>Users)
+@Resolver()
 export class UserResolver {
     constructor(private readonly userService: UserService) {}
-    @Query(()=>String)
-    async hello(@Args('data',{type:()=>String}) data:string){
-      return "Hello World " + data
-    }
-    @Query(()=>Users) 
+
+    @Query(() => String)
+    hello(): string {
+    return 'Hello World!';
+     }
+
+    @Query(()=>String) 
     async login(@Args('username') username:string) {
     return  this.userService.findUser(username)
     }
+    
     @Query(() => [Users])
     async users() {
       return this.userService.findAll();

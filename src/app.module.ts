@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { MongooseModule, Schema } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -12,16 +13,7 @@ import { join } from 'path';
       autoSchemaFile:true,
       playground:true
     }),
-    TypeOrmModule.forRoot({
-      type: 'mongodb',
-      url:
-        'mongodb+srv://user:admin@cluster0.guih4.mongodb.net/nestDB?retryWrites=true&w=majority',
-      entities: [join(__dirname, '**/**.entity{.ts,.js}')],
-      synchronize: true,
-      useNewUrlParser: true,
-      logging: true,
-      autoLoadEntities:true
-    }),
+    MongooseModule.forRoot('mongodb+srv://user:admin@cluster0.guih4.mongodb.net/nestDB?retryWrites=true&w=majority'),
     UserModule,
     
   ],

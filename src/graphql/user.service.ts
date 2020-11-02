@@ -1,35 +1,39 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Users } from './user.entity';
-import { MongoRepository } from 'typeorm';
-import * as uuid from 'uuid';
+import { Users,UserDocument } from './user.entity';
+import {Model} from 'mongoose'
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class UserService {
   
   constructor(
-    @InjectRepository(Users)
-    private readonly userRepository: MongoRepository<Users>,
+    @InjectModel(Users.name)
+    private readonly userModel:Model<UserDocument>,
   ) {}
 
   async findAll(): Promise<Users[]> {
-    return this.userRepository.find();
+    return this.userModel.find().exec();
   }
+
   async findUser(username: string): Promise<Users> {
+    console.log(username)
     if(username){
-      console.log(username)
-      return await this.userRepository.findOne({username})
+      console.log("User Name",username)
+
+      const User = await this.userModel.findOne({username})
+      console.log(User)
+      return User
     }
     throw new Error('Method not implemented.');
   }
 
-  async create(input: Users) : Promise<Users> {
-    const user = new Users();
-    user._id = uuid.v4();
+  async create(input) : Promise<Users> {
+    console.log(input,"input")
+    const user = new this.userModel()
     user.username = input.username;
     user.email=input.email;
     user.password = input.password;
     user.createdOn=new Date();
-    return this.userRepository.save(user);
+    return user.save();
   }
 }
