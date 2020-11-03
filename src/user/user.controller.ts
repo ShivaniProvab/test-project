@@ -1,4 +1,6 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post, UseGuards,Request } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 import { Users } from 'src/graphql/user.entity';
 import {UserResolver} from '../graphql/user.resolver'
 
@@ -17,10 +19,10 @@ export class UserController {
         return this.UserResolver.createUser(body)
     }    
 
-    @Post('login')
-    login(@Body() body){
-        return this.UserResolver.login(body.username,body.password)
-
+    @UseGuards(LocalAuthGuard)
+    @Post('auth/login')
+    async login(@Request() req) {
+      return req.user;
     }
     
 }

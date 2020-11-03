@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { MongooseModule, Schema } from '@nestjs/mongoose';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { MongooseModule, Schema } from '@nestjs/mongoose';
     }),
     MongooseModule.forRoot('mongodb+srv://user:admin@cluster0.guih4.mongodb.net/nestDB?retryWrites=true&w=majority'),
     UserModule,
+    AuthModule,
     
   ],
   controllers: [AppController, ],
